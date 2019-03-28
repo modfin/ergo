@@ -1,0 +1,45 @@
+version: "3.0"
+services:
+  ps-traefik:
+    image: traefik
+    command: --web --docker --docker.domain=localhost --logLevel=WARN --entryPoints='Name:http Address::80 Compress:true'
+    ports:
+      - "8080:80"
+      - "8081:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - "traefik.enable=false"
+    stop_signal: SIGKILL
+
+  service0:
+    build:
+      context: ./go/src/aproject/service0
+      dockerfile: Dockerfile
+      args:
+        UID: ${UID}
+        USER: ${USER}
+    volumes:
+      - ./go/src/aproject/service0:/go/src/aproject/service0:delegated
+      - ./go/pkg:/go/pkg:delegated
+    labels:
+      - "traefik.frontend.rule=PathPrefixStrip: /api/service0"
+
+
+  #  frontend0:
+#    build:
+#      context: ./ui/frontend0
+#      dockerfile: Dockerfile
+#    volumes:
+#      - ./ui/frontend0:/frontend0:delegated
+#    labels:
+#      -  "traefik.app.frontend.rule=PathPrefix: /"
+#
+#  postgres:
+#    image: postgres
+#    environment:
+#      - POSTGRES_PASSWORD=qwerty
+#    ports:
+#      - "15432:5432"
+#    labels:
+#      - "traefik.enable=false"
