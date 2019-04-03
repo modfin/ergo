@@ -1,4 +1,5 @@
 version: "3.0"
+# ErGo(nomi) - eller
 services:
   ps-traefik:
     image: traefik
@@ -40,14 +41,14 @@ services:
 
 
 
-  #  frontend0:
-#    build:
-#      context: ./ui/frontend0
-#      dockerfile: Dockerfile
-#    volumes:
-#      - ./ui/frontend0:/frontend0:delegated
-#    labels:
-#      -  "traefik.app.frontend.rule=PathPrefix: /"
+  frontend0:
+    build:
+      context: ./ui/frontend0
+      dockerfile: Dockerfile
+    volumes:
+      - ./ui/frontend0:/frontend0:delegated
+    labels:
+      -  "traefik.app.frontend.rule=PathPrefix: /"
 #
 #  postgres:
 #    image: postgres
