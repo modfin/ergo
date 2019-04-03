@@ -16,8 +16,7 @@ var (
 	cfg  Config
 )
 
-
-func Get() *Config{
+func Get() *Config {
 	once.Do(func() {
 		cfg = Config{}
 		if err := env.Parse(&cfg); err != nil {

@@ -1,9 +1,7 @@
 package main
 
 import (
-
-	"aproject/service1/internal/config"
-	"aproject/service1/internal/dao"
+	"aproject/service0"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -16,7 +14,7 @@ func main() {
 
 
 
-		j, err := json.Marshal(arr)
+		j, err := json.Marshal(service0.ModelService0{A: 3, B: 4})
 
 		if err != nil {
 			writer.WriteHeader(500)

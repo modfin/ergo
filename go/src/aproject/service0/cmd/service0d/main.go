@@ -11,10 +11,7 @@ import (
 
 func main() {
 
-
 	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
-
-
 		c := config.Get()
 
 		fmt.Println(" - Got request")

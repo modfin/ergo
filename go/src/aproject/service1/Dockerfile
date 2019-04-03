@@ -4,7 +4,7 @@ FROM golang:1.11-alpine
 RUN apk update && apk add --no-cache git curl build-base bash openssh-client shadow
 
 RUN go get github.com/githubnemo/CompileDaemon && mv /go/bin/CompileDaemon /usr/bin
-RUN mkdir -p /go/src/aproject/service0
+RUN mkdir -p /go/src/aproject/service1
 
 ENV GO111MODULE=on
 
@@ -33,7 +33,7 @@ USER $USER
 
 EXPOSE 8080
 
-WORKDIR /go/src/aproject/service0
-CMD CompileDaemon -build="go build -o /tmp/service0d /go/src/aproject/service0/cmd/service0d/main.go" \
-    -command="/tmp/service0d" \
-    -directory="/go/src/aproject/service0"
+WORKDIR /go/src/aproject/service1
+CMD CompileDaemon -build="go build -o /tmp/service1d /go/src/aproject/service1/cmd/service1d/main.go" \
+    -command="/tmp/service1d" \
+    -directory="/go/src/aproject/service1"

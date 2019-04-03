@@ -20,10 +20,24 @@ services:
         UID: ${UID}
         USER: ${USER}
     volumes:
-      - ./go/src/aproject/service0:/go/src/aproject/service0:delegated
+      - ./go/src/aproject:/go/src/aproject:delegated
       - ./go/pkg:/go/pkg:delegated
     labels:
       - "traefik.frontend.rule=PathPrefixStrip: /api/service0"
+
+  service1:
+    build:
+      context: ./go/src/aproject/service1
+      dockerfile: Dockerfile
+      args:
+        UID: ${UID}
+        USER: ${USER}
+    volumes:
+      - ./go/src/aproject:/go/src/aproject:delegated
+      - ./go/pkg:/go/pkg:delegated
+    labels:
+      - "traefik.frontend.rule=PathPrefixStrip: /api/service1"
+
 
 
   #  frontend0:
