@@ -1,0 +1,143 @@
+ergo,
+
+that is how we build things
+
+Rasmus Holm
+CTO, Modular Finance
+rasmus.holm@modularfinance.se
+https://modularfinance.se
+https://github.com/modfin/ergo
+
+
+* Descartes was wrong, lets talk.
+
+* Who
+
+** Modular Finance
+
+- A FinTech, _buzz_ _buzz_, company
+- Founded in 2013
+- Go users since 2016 ish
+- Gone from a Java to a Go shop
+- Located in Stockholm
+- ~ 20 people
+- 7 different products
+- B2B
+
+* Background
+
+** How do we make everything work together?
+
+- Working with Micro Services has its problems
+- Working with Go has its problems
+- Working with Docker has its problems
+- Working with People has its problems
+
+
+
+#- Go feels randomly opinionated, at times
+#- Squiggle lines in the IDE
+#- Develop, Test, Build, Deploy
+#- Start time
+
+* Wish list
+
+** How do we want to build our products?
+
+- Manage dependencies
+- Manage private dependencies
+- Work well with docker, compose and k8s
+- Play nice with my IDE
+- Get things up and running fast
+- Have a clear structure (What goes where)
+- Simple git workflow
+
+
+* Our solution, the big things
+
+** Many iterations later
+
+- Mono repo (ish)
+- Commit our deps
+- Use RO ssh keys for private deps
+- Dev, Test and Prod is all docker in containers
+- Docker compose
+- Some custom tooling for us
+- k8s
+
+
+* Structure
+
+    product
+    ├─ db
+    ├─ go
+    │  ├─ pkg
+    │  └─ src
+    │     └─ product
+    │        ├─ lib
+    │        └─ srv0
+    │           ├─ cmd
+    │           │  └─ main.go
+    │           ├─ internal
+    │           │  ├─ config
+    │           │  └─ dao
+    │           ├─ Dockerfile
+    │           ├─ Dockerfile.build
+    │           ├─ go.mod
+    │           └─ models.go
+    ├─ k8s
+    ├─ tools
+    ├─ ui
+    │  └─ frontend0
+    └─ docker-compose.yml
+
+
+* Dockerfile
+
+    FROM golang:1.11-alpine
+
+    (...)
+
+    RUN mkdir -p /go/src/product/srv0
+
+    # mirror dev user
+    ARG USER
+
+    (...)
+
+    USER $USER
+    EXPOSE 8080
+    WORKDIR /go/src/product/srv0
+
+    ENV GO111MODULE=on
+
+    CMD CompileDaemon -build="go build -o /tmp/srv0d /go/src/product/srv0/cmd/main.go" \
+        -command="/tmp/srv0d" \
+        -directory="/go/src/product/srv0"
+
+
+* docker-compose.yml
+
+    version: "3.0"
+    services:
+      traefik:
+        image: traefik
+        command: --web --docker --entryPoints='Name:http Address::80'
+        ports:
+          - "8080:80"
+          - "8081:8080"
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
+
+      srv0:
+        build:
+          context: ./go/src/product/srv0
+          dockerfile: Dockerfile
+        volumes:
+          - ./go/src/product:/go/src/product:delegated
+          - ./go/pkg:/go/pkg:delegated
+        labels:
+          - "traefik.frontend.rule=PathPrefixStrip: /api/srv0"
+
+
+* Questions?
