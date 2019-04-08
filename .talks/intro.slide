@@ -17,21 +17,21 @@ https://github.com/modfin/ergo
 
 - A FinTech, _buzz_ _buzz_, company
 - Founded in 2013
-- Go users since 2016 ish
+- Go in production since 2016-ish
 - Gone from a Java to a Go shop
 - Located in Stockholm
 - ~ 20 people
-- 7 different products
+- Running 7 different products
 - B2B
 
 * Background
 
-** How do we make everything work together?
+** Hello World to production?
 
-- Working with Micro Services has its problems
-- Working with Go has its problems
-- Working with Docker has its problems
-- Working with People has its problems
+- Working with Micro Services
+- Working with Go
+- Working with Docker
+- Working with People
 
 
 
@@ -44,13 +44,14 @@ https://github.com/modfin/ergo
 
 ** How do we want to build our products?
 
-- Manage dependencies
-- Manage private dependencies
-- Work well with docker, compose and k8s
-- Play nice with my IDE
-- Get things up and running fast
-- Have a clear structure (What goes where)
-- Simple git workflow
+- Manage dependencies.
+- Manage private dependencies.
+- Work well with docker, compose and k8s.
+- Play nice with my IDE.
+- Get your environment things up and running.
+- Have a clear structure (What goes where?)
+- Simple git workflow.
+- A clear mental picture and keeping things simple
 
 
 * Our solution, the big things
@@ -61,9 +62,9 @@ https://github.com/modfin/ergo
 - Commit our deps
 - Use RO ssh keys for private deps
 - Dev, Test and Prod is all docker in containers
-- Docker compose
-- Some custom tooling for us
-- k8s
+- docker compose
+- Some custom tooling
+- kube
 
 
 * Structure
@@ -106,9 +107,9 @@ https://github.com/modfin/ergo
     (...)
 
     USER $USER
-    EXPOSE 8080
     WORKDIR /go/src/product/srv0
 
+    EXPOSE 8080
     ENV GO111MODULE=on
 
     CMD CompileDaemon -build="go build -o /tmp/srv0d /go/src/product/srv0/cmd/main.go" \
