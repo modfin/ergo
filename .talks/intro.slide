@@ -9,6 +9,7 @@ https://modularfinance.se
 https://github.com/modfin/ergo
 
 
+
 * Descartes was wrong, lets talk.
 
 * Who
@@ -26,7 +27,7 @@ https://github.com/modfin/ergo
 
 * Background
 
-** Hello World to production?
+** From Hello World to production
 
 - Working with Micro Services
 - Working with Go
@@ -40,21 +41,27 @@ https://github.com/modfin/ergo
 #- Develop, Test, Build, Deploy
 #- Start time
 
+
+* Overview
+
+.image resources/overview.svg _ 1300
+
+
 * Wish list
 
 ** How do we want to build our products?
 
 - Manage dependencies.
 - Manage private dependencies.
-- Work well with docker, compose and k8s.
+- Docker, compose and k8s.
 - Play nice with my IDE.
-- Get your environment things up and running.
+- Get environments things up and running.
 - Have a clear structure (What goes where?)
 - Simple git workflow.
 - A clear mental picture and keeping things simple
 
 
-* Our solution, the big things
+* Our solution, the big things anyway
 
 ** Many iterations later
 
@@ -75,6 +82,7 @@ https://github.com/modfin/ergo
     │  ├─ pkg
     │  └─ src
     │     └─ product
+    │        ├─ _integration
     │        ├─ lib
     │        └─ srv0
     │           ├─ cmd
@@ -89,7 +97,6 @@ https://github.com/modfin/ergo
     ├─ k8s
     ├─ tools
     ├─ ui
-    │  └─ frontend0
     └─ docker-compose.yml
 
 
@@ -141,4 +148,4 @@ https://github.com/modfin/ergo
           - "traefik.frontend.rule=PathPrefixStrip: /api/srv0"
 
 
-* Questions?
+* Thoughts, Questions or Feedback?
