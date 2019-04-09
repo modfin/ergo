@@ -1,4 +1,4 @@
-ergo,
+ergo
 
 that is how we build things
 
@@ -10,7 +10,7 @@ https://github.com/modfin/ergo
 
 
 
-* Descartes was wrong, lets talk.
+* Let us have a conversation.
 
 * Who
 
@@ -35,13 +35,6 @@ https://github.com/modfin/ergo
 - Working with People
 
 
-
-#- Go feels randomly opinionated, at times
-#- Squiggle lines in the IDE
-#- Develop, Test, Build, Deploy
-#- Start time
-
-
 * Overview
 
 .image resources/overview.svg _ 1300
@@ -63,14 +56,14 @@ https://github.com/modfin/ergo
 
 * Our solution, the big things anyway
 
-** Many iterations later
+** Some iterations later
 
 - Mono repo (ish)
-- Commit our deps
 - Use RO ssh keys for private deps
+- Commit our deps, including our own
 - Dev, Test and Prod is all docker in containers
-- docker compose
 - Some custom tooling
+- docker compose
 - kube
 
 
@@ -82,7 +75,6 @@ https://github.com/modfin/ergo
     │  ├─ pkg
     │  └─ src
     │     └─ product
-    │        ├─ _integration
     │        ├─ lib
     │        └─ srv0
     │           ├─ cmd
@@ -148,4 +140,4 @@ https://github.com/modfin/ergo
           - "traefik.frontend.rule=PathPrefixStrip: /api/srv0"
 
 
-* Thoughts, Questions or Feedback?
+* Thoughts, Questions or Comments?
